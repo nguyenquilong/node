@@ -34,18 +34,18 @@ exports.create = async (req, res, next) => {
   }
 };
 
-exports.get = async (req, res, next) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  let loadedUser;
+exports.getPosts = async (req, res, next) => {
+  const cate = req.body.cate;
+
+  let loadedPost;
   try {
-    const user = await User.findOne({ email: email });
+    const post = await Post.findOne({ cate: cate });
     if (!user) {
-      const error = new Error("A user with this email could not be found.");
+      const error = new Error("Post not found.");
       error.statusCode = 401;
       throw error;
     }
-    loadedUser = user;
+    loadedPost = user;
     const isEqual = await bcrypt.compare(password, user.password);
     if (!isEqual) {
       const error = new Error("Wrong password!");
@@ -54,13 +54,13 @@ exports.get = async (req, res, next) => {
     }
     const token = jwt.sign(
       {
-        email: loadedUser.email,
-        userId: loadedUser._id.toString(),
+        email: loadedPost.email,
+        userId: loadedPost._id.toString(),
       },
       "somesupersecretsecret",
       { expiresIn: "1h" }
     );
-    res.status(200).json({ token: token, userId: loadedUser._id.toString() });
+    res.status(200).json({ token: token, userId: loadedPost._id.toString() });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;

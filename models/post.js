@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const postSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    required: "",
   },
   image: {
     type: String,
@@ -12,12 +12,16 @@ const postSchema = new Schema({
   },
   price: {
     type: Number,
-    default: true,
+    default: 0,
+  },
+  category: {
+    type: Number,
+    default: 0,
   },
   quantity: {
     type: Number,
-    default: true,
+    default: 0,
   },
 });
 
-module.exports = mongoose.model("Post", categorySchema);
+module.exports = mongoose.model("Post", postSchema);
