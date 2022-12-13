@@ -7,6 +7,7 @@ const multer = require("multer");
 
 // const feedRoutes = require("./routes/feed");
 const authRoutes = require("./routes/auth");
+const postRoutes = require("./routes/post");
 
 const app = express();
 
@@ -50,6 +51,7 @@ app.use((req, res, next) => {
 
 // app.use("/feed", feedRoutes);
 app.use("/auth", authRoutes);
+app.use("/post", postRoutes);
 
 app.use((error, req, res, next) => {
   console.log(error);
@@ -61,6 +63,6 @@ app.use((error, req, res, next) => {
 
 mongoose.set("strictQuery", true);
 mongoose.connect("mongodb://127.0.0.1:27017/shop").then(() => {
-  console.log('connected !')
   app.listen(8000);
+  console.log("connected !");
 });
