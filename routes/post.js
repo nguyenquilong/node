@@ -7,14 +7,14 @@ const isAuth = require("../middleware/is-auth");
 
 const router = express.Router();
 
-// router.put(
-//   "/signup",
-//   postController.signup
-// );
+router.post(
+  "/create", isAuth, 
+  postController.createPost
+);
 
 // router.post("/login", authController.login);
 
-router.get("/post", isAuth, postController.getPosts);
+// router.get("/post", isAuth, postController.getPosts);
 
 // router.patch(
 //   "/status",

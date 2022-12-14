@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const multer = require("multer");
 
+
 // const feedRoutes = require("./routes/feed");
 const authRoutes = require("./routes/auth");
 const postRoutes = require("./routes/post");
@@ -13,12 +14,13 @@ const app = express();
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "images");
+    cb(null, "./images");
   },
   filename: (req, file, cb) => {
-    cb(null, new Date().toISOString() + "-" + file.originalname);
+    cb(null, file.originalname);
   },
 });
+
 
 const fileFilter = (req, file, cb) => {
   if (
@@ -32,12 +34,20 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// app.use(bodyParser.urlencoded()); // x-www-form-urlencoded <form>
-app.use(bodyParser.json()); // application/json
+// app.use(bodyParser.urlencoded({ extended: false }));
+
+
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+
+
 app.use(
-  multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single('imageUrl')
 );
-app.use("/images", express.static(path.join(__dirname, "images")));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static(path.join(__dirname, 'images')))
+// app.use('/images', express.static('images'));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
