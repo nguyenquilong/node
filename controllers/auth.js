@@ -7,17 +7,20 @@ const User = require("../models/user");
 exports.signup = async (req, res, next) => {
   console.log("req", JSON.stringify(req.body));
   const errors = validationResult(req);
+  console.log('errors', errors)
   if (!errors.isEmpty()) {
     const error = new Error("Validation failed.");
     error.statusCode = 422;
     error.data = errors.array();
     throw error;
   }
-  const email = req.body.email;
-  const name = req.body.name;
-  const password = req.body.password;
+  const email = await req.body.email;
+  const name = await req.body.name;
+  const password = await req.body.password;
+  console.log(email)
   
   try {
+    console.log(email)
     const hashedPw = await bcrypt.hash(password, 12);
 
     const user = new User({
@@ -25,6 +28,7 @@ exports.signup = async (req, res, next) => {
       password: hashedPw,
       name: name,
     });
+    console.log(user)
     const result = await user.save();
     res.status(201).json({ message: "User created!", userId: result._id });
   } catch (err) {
