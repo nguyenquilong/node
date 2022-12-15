@@ -12,6 +12,8 @@ router.post(
   postController.createPost
 );
 
+router.get("/post", isAuth, postController.getPosts);
+
 // router.post("/login", authController.login);
 
 // router.get("/post", isAuth, postController.getPosts);

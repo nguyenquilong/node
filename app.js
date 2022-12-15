@@ -4,7 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const multer = require("multer");
-
+const session = require('express-session');
 
 // const feedRoutes = require("./routes/feed");
 const authRoutes = require("./routes/auth");

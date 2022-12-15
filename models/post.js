@@ -6,23 +6,26 @@ const postSchema = new Schema({
     type: String,
     required: true
   },
-  // name: {
-  //   type: String,
-  //   required: true,
-  // },
-  
-  // price: {
-  //   type: Number,
-  //   default: 0,
-  // },
-  // category: {
-  //   type: Number,
-  //   default: 0,
-  // },
-  // quantity: {
-  //   type: Number,
-  //   default: 0,
-  // },
+  title: {
+    type: String,
+    required: true,
+  },
+  content: {
+    type: String,
+    required: false,
+  },
+  price: {
+    type: Number,
+    default: 0,
+  },
+  category: {
+    type: Number,
+    default: 0,
+  },
+  quantity: {
+    type: Number,
+    default: 0,
+  },
 });
 
 module.exports = mongoose.model("Post", postSchema);
