@@ -4,11 +4,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const multer = require("multer");
-const session = require('express-session');
+const session = require("express-session");
 
 // const feedRoutes = require("./routes/feed");
 const authRoutes = require("./routes/auth");
 const postRoutes = require("./routes/post");
+const cateRoutes = require("./routes/cate");
 
 const app = express();
 
@@ -20,7 +21,6 @@ const fileStorage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-
 
 const fileFilter = (req, file, cb) => {
   if (
@@ -35,18 +35,18 @@ const fileFilter = (req, file, cb) => {
 };
 
 // app.use(bodyParser.urlencoded({ extended: false }));
-
-
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
-
+app.use(express.json()); // for parsing application/json
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
 app.use(
-  multer({ storage: fileStorage, fileFilter: fileFilter }).single('imageUrl')
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single("imageUrl")
 );
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/images', express.static(path.join(__dirname, 'images')))
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/images", express.static(path.join(__dirname, "images")));
 // app.use('/images', express.static('images'));
 
 app.use((req, res, next) => {
@@ -62,6 +62,7 @@ app.use((req, res, next) => {
 // app.use("/feed", feedRoutes);
 app.use("/auth", authRoutes);
 app.use("/post", postRoutes);
+app.use("/cate", cateRoutes);
 
 app.use((error, req, res, next) => {
   console.log(error);

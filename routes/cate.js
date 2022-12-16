@@ -1,13 +1,13 @@
 const express = require("express");
 const { body } = require("express-validator");
 
-const postController = require("../controllers/post");
+const cateController = require("../controllers/cate");
 const isAuth = require("../middleware/is-auth");
 
 const router = express.Router();
 
-router.post("/create", isAuth, postController.createPost);
+router.post("/create", isAuth, cateController.createCate);
 
-router.get("/post", isAuth, postController.getPosts);
+router.get("/list", cateController.getCates);
 
 module.exports = router;
