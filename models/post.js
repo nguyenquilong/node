@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const postSchema = new Schema({
   imageUrl: {
     type: String,
-    required: true
+    required: true,
   },
   title: {
     type: String,
@@ -18,10 +18,13 @@ const postSchema = new Schema({
     type: Number,
     default: 0,
   },
-  category: {
-    type: Number,
-    default: 0,
-  },
+
+  category: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Cate",
+    },
+  ],
   quantity: {
     type: Number,
     default: 0,
