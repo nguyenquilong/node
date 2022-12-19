@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 const categorySchema = new Schema({
   name: {
     type: String,
-    // required: true,
-    default: "aaaa",
+    required: true,
   },
   sortorder: {
     type: Number,
@@ -15,12 +14,11 @@ const categorySchema = new Schema({
     type: Boolean,
     default: true,
   },
-  posts: [
+  userId: 
     {
       type: Schema.Types.ObjectId,
-      ref: "Post",
+      ref: "User",
     },
-  ],
 });
 
 module.exports = mongoose.model("Cate", categorySchema);

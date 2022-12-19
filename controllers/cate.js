@@ -12,7 +12,7 @@ exports.createCate = (req, res, next) => {
     name: name,
     sortorder: sortorder,
     status: status,
-    creator: { name: "longga" },
+    userId: req.userId
   });
   console.log("cate", name);
   cate

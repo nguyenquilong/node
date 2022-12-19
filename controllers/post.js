@@ -4,48 +4,44 @@ const jwt = require("jsonwebtoken");
 
 const Post = require("../models/post");
 const Cate = require("../models/cate");
+const User = require('../models/user');
 
 exports.createPost = (req, res, next) => {
+  console.log('req.user', req.userId)
+
+  // User.findById(req.userId)
+  //   .then(user => {
+  //     req.user = user;
+  //     next();
+  //   })
+  //   .catch(err => console.log(err));
+
   const imageUrl = req.file.path;
   const title = req.body.title;
   const content = req.body.content;
-  const category = req.body.category;
+  // const category = req.body.category;
   const post = new Post({
-    _id: new mongoose.Types.ObjectId(),
     title: title,
     content: content,
     imageUrl: imageUrl,
-    // category: category,
-    creator: { name: "longga" },
+    userId: req.userId
   });
 
-  post.save(function (err) {
-    if (err) return handleError(err);
 
-    const cate1 = new Cate({
-      title: title,
-      post: post._id, // gián giá trị _id cho person
+  post
+    .save()
+    .then((result) => {
+      res.status(201).json({
+        message: "Post created successfully!",
+        post: result,
+      });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
     });
-
-    cate1.save(function (err) {
-      if (err) return handleError(err);
-    });
-  });
-
-  // post
-  //   .save()
-  //   .then((result) => {
-  //     res.status(201).json({
-  //       message: "Post created successfully!",
-  //       post: result,
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     if (!err.statusCode) {
-  //       err.statusCode = 500;
-  //     }
-  //     next(err);
-  //   });
 };
 
 exports.getPosts = async (req, res, next) => {
