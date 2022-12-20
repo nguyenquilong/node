@@ -8,10 +8,16 @@ exports.createCate = (req, res, next) => {
   const name = req.body.name;
   const sortorder = req.body.sortorder;
   const status = req.body.status;
+  const iconname = req.body.iconname;
+  const path = req.body.path;
+  const color = req.body.color;
   const cate = new Cate({
     name: name,
     sortorder: sortorder,
     status: status,
+    iconname: iconname,
+    path : path,
+    color: color,
     userId: req.userId
   });
   console.log("cate", name);
@@ -33,8 +39,8 @@ exports.createCate = (req, res, next) => {
 
 exports.getCates = async (req, res, next) => {
   try {
-    const post = await Cate.find();
-    res.status(200).json({ post: post });
+    const cate = await Cate.find();
+    res.status(200).json({ cate: cate });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;

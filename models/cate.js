@@ -14,6 +14,18 @@ const categorySchema = new Schema({
     type: Boolean,
     default: true,
   },
+  iconname: {
+    type: String,
+    default: "",
+  },
+  path: {
+    type: String,
+    default: "/",
+  },
+  color: {
+    type: String,
+    default: "#000",
+  },
   userId: 
     {
       type: Schema.Types.ObjectId,

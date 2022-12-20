@@ -67,7 +67,7 @@ app.use((req, res, next) => {
 app.use('/admin', adminRoutes);
 app.use("/auth", authRoutes);
 app.use("/post", postRoutes);
-app.use("/cate", cateRoutes);
+app.use("/api/cate", cateRoutes);
 app.use(shopRoutes);
 
 const store = new MongoDBStore({
