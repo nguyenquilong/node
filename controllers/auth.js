@@ -9,10 +9,12 @@ exports.signup = async (req, res, next) => {
   const errors = validationResult(req);
   console.log("errors", errors);
   if (!errors.isEmpty()) {
+    console.log("errors 1", errors);
     const error = new Error("Validation failed.");
     error.statusCode = 422;
     error.data = errors.array();
-    throw error;
+    res.status(422).json({ message: errors[0].msg, errorCode: 1 });
+    // throw error;
   }
   const email = await req.body.email;
   const phonenumber = await req.body.phonenumber;
@@ -32,6 +34,7 @@ exports.signup = async (req, res, next) => {
     const result = await user.save();
     res.status(201).json({ message: "User created!", userId: result._id });
   } catch (err) {
+    console.log("err", err);
     if (!err.statusCode) {
       err.statusCode = 500;
     }

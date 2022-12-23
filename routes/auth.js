@@ -28,7 +28,7 @@ router.put(
         });
       })
       .normalizeEmail(),
-    body("password").trim().isLength({ min: 5 }),
+    body("password").trim().isLength({ min: 5 }).withMessage("Must be > 5."),
     body("name").trim().not().isEmpty(),
   ],
   authController.signup
