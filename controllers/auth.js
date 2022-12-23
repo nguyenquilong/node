@@ -7,7 +7,7 @@ const User = require("../models/user");
 exports.signup = async (req, res, next) => {
   console.log("req", JSON.stringify(req.body));
   const errors = validationResult(req);
-  console.log('errors', errors)
+  console.log("errors", errors);
   if (!errors.isEmpty()) {
     const error = new Error("Validation failed.");
     error.statusCode = 422;
@@ -15,20 +15,20 @@ exports.signup = async (req, res, next) => {
     throw error;
   }
   const email = await req.body.email;
+  const phonenumber = await req.body.phonenumber;
   const name = await req.body.name;
   const password = await req.body.password;
-  console.log(email)
-  
+
   try {
-    console.log(email)
     const hashedPw = await bcrypt.hash(password, 12);
 
     const user = new User({
       email: email,
       password: hashedPw,
       name: name,
+      phonenumber: phonenumber,
     });
-    console.log(user)
+    console.log(user);
     const result = await user.save();
     res.status(201).json({ message: "User created!", userId: result._id });
   } catch (err) {
@@ -41,15 +41,16 @@ exports.signup = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
   console.log("req", JSON.stringify(req.body));
-  const email = await req.body.email;
+  const phonenumber = await req.body.phonenumber;
   const password = await req.body.password;
 
-  console.log('email', email)
   let loadedUser;
   try {
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ phonenumber: phonenumber });
     if (!user) {
-      const error = new Error("A user with this email could not be found.");
+      const error = new Error(
+        "A user with this phonenumber could not be found."
+      );
       error.statusCode = 401;
       throw error;
     }
@@ -62,7 +63,7 @@ exports.login = async (req, res, next) => {
     }
     const token = jwt.sign(
       {
-        email: loadedUser.email,
+        phonenumber: loadedUser.phonenumber,
         userId: loadedUser._id.toString(),
       },
       "somesupersecretsecret",

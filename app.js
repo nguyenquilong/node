@@ -60,7 +60,7 @@ app.use((req, res, next) => {
 });
 
 // app.use("/feed", feedRoutes);
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/post", postRoutes);
 app.use("/cate", cateRoutes);
 
