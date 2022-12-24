@@ -5,15 +5,16 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
 exports.signup = async (req, res, next) => {
-  console.log("req", JSON.stringify(req.body));
+  //console.log("req", JSON.stringify(req.body));
   const errors = validationResult(req);
-  console.log("errors", errors);
+  //console.log("errors", errors);
   if (!errors.isEmpty()) {
-    console.log("errors 1", errors);
+    //console.log("errors 1", errors);
     const error = new Error("Validation failed.");
+    console.log('error', error)
     error.statusCode = 422;
     error.data = errors.array();
-    res.status(422).json({ message: errors[0].msg, errorCode: 1 });
+    res.status(200).json({ message: errors.errors[0].msg, errorCode: 1 });
     // throw error;
   }
   const email = await req.body.email;

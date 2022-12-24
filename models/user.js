@@ -22,6 +22,10 @@ const userSchema = new Schema({
     type: String,
     default: "I am new!",
   },
+  role: {
+    type: String,
+    default: "guest",
+  },
   posts: [
     {
       type: Schema.Types.ObjectId,

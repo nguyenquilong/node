@@ -23,11 +23,10 @@ router.put(
       .custom((value, { req }) => {
         return User.findOne({ phonenumber: value }).then((userDoc) => {
           if (userDoc) {
-            return Promise.reject("E-Mail address already exists!");
+            return Promise.reject("Phonenumber already exists!");
           }
         });
-      })
-      .normalizeEmail(),
+      }),     
     body("password").trim().isLength({ min: 5 }).withMessage("Must be > 5."),
     body("name").trim().not().isEmpty(),
   ],
