@@ -33,8 +33,8 @@ exports.createCate = (req, res, next) => {
 
 exports.getCates = async (req, res, next) => {
   try {
-    const post = await Cate.find();
-    res.status(200).json({ post: post });
+    const cate = await Cate.find();
+    res.status(200).json({ cate: cate });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;

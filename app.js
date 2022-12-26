@@ -10,6 +10,7 @@ const session = require("express-session");
 const authRoutes = require("./routes/auth");
 const postRoutes = require("./routes/post");
 const cateRoutes = require("./routes/cate");
+const adminRouter = require("./routes/admin");
 
 const app = express();
 
@@ -61,8 +62,9 @@ app.use((req, res, next) => {
 
 // app.use("/feed", feedRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/post", postRoutes);
-app.use("/cate", cateRoutes);
+app.use("/api/post", postRoutes);
+app.use("/api/cate", cateRoutes);
+app.use("/api/admin", adminRouter);
 
 app.use((error, req, res, next) => {
   console.log(error);
