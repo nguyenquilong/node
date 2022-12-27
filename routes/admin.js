@@ -8,5 +8,4 @@ const router = express.Router();
 
 router.post("/create-post", isAuth, adminController.createPost);
 
-
 module.exports = router;

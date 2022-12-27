@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const Post = require("../models/post");
 const Cate = require("../models/cate");
 const mongoose = require("mongoose");
+const User = require("../models/user");
 exports.createPost = (req, res, next) => {
   const imageUrl = req.file.path;
   const title = req.body.title;
@@ -16,9 +17,28 @@ exports.createPost = (req, res, next) => {
     content: content,
     imageUrl: imageUrl,
     category: category,
-    userId: req.user,
-    creator: { name: "longga" },
+    // userId: req.user,
+    userId: req.body.userId,
   });
+  // console.log("req.user", req.user);
+  User.findById(req.body.userId)
+    .then((result) => {
+      if (result.role !== "admin") {
+        // const error = new Error("A user has no roles.");
+        // error.statusCode = 200;
+        // console.log("error", error);
+        res.status(200).json({
+          message: "You have not pemission.",
+          status: 0,
+        });
+      }
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 
   post
     .save()
@@ -26,7 +46,7 @@ exports.createPost = (req, res, next) => {
       res.status(201).json({
         message: "Post created successfully!",
         post: result,
-        status: 1
+        status: 1,
       });
     })
     .catch((err) => {
