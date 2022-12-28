@@ -10,6 +10,17 @@ const categorySchema = new Schema({
     type: Number,
     default: 0,
   },
+
+
+  iconname: {
+    type: String,
+  },
+  path: {
+    type: String,
+  },
+  color: {
+    type: String,
+  },
   status: {
     type: Boolean,
     default: true,

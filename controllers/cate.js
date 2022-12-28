@@ -8,11 +8,17 @@ exports.createCate = (req, res, next) => {
   const name = req.body.name;
   const sortorder = req.body.sortorder;
   const status = req.body.status;
+  const path = req.body.path;
+  const iconname = req.body.iconname;
+  const color = req.body.color;
+
   const cate = new Cate({
     name: name,
     sortorder: sortorder,
     status: status,
-    creator: { name: "longga" },
+    path: path,
+    iconname: iconname,
+    color: color
   });
   console.log("cate", name);
   cate
