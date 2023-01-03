@@ -4,7 +4,7 @@ const carouselsController = require("../controllers/carousels");
 
 const router = express.Router();
 
-router.get("/carousels", carouselsController.getCarosels);
+router.get("/list", carouselsController.getCarosels);
 
 router.post("/carousels", isAuth, carouselsController.createCarosels);
 

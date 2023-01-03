@@ -56,7 +56,7 @@ exports.createCarosels = async (req, res, next) => {
 
 exports.getCarosels = async (req, res, next) => {
   try {
-    const carousels = await Carousels.findAll();
+    const carousels = await Carousels.find();
     res
       .status(200)
       .json({ carousels: carousels, message: "Get post success", status: 1 });
