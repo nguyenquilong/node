@@ -19,7 +19,7 @@ exports.createCarosels = async (req, res, next) => {
     userId: req.body.userId,
   });
 
-  // console.log("req.body.userId", req.body.userId);
+  console.log("req.body.userId", req.body.userId);
 
   User.findById(req.body.userId)
     .then((result) => {
