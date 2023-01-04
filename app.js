@@ -12,6 +12,7 @@ const postRoutes = require("./routes/post");
 const cateRoutes = require("./routes/cate");
 const adminRouter = require("./routes/admin");
 const carouselsRouter = require("./routes/carousels");
+const cartRouter = require("./routes/cart");
 
 const app = express();
 
@@ -67,6 +68,7 @@ app.use("/api/post", postRoutes);
 app.use("/api/cate", cateRoutes);
 app.use("/api/admin", adminRouter);
 app.use("/api/carousels", carouselsRouter);
+app.use("/api/cart", cartRouter);
 
 app.use((error, req, res, next) => {
   console.log(error);

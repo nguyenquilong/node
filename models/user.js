@@ -32,6 +32,12 @@ const userSchema = new Schema({
       ref: "Post",
     },
   ],
+  cart: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Post",
+    },
+  ],
 });
 
 module.exports = mongoose.model("User", userSchema);
