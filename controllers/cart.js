@@ -24,3 +24,20 @@ exports.setCart = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.deleteCart =async (req, res, next) => {
+  try {
+  const id = req.userId;
+    const postId = req.body.postId;
+    const user = await User.findById(id);
+  user
+    .removeFromCart(postId)
+    .then(result => {
+      res.status(200).json({ message: "Delete cart success", status: 1 });
+    })    
+}catch (err) {
+  if (!err.statusCode) {
+    err.statusCode = 500;
+  }
+  next(err);
+} };
