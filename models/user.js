@@ -39,7 +39,10 @@ const userSchema = new Schema({
           type: Schema.Types.ObjectId,
           ref: 'Post',
         },
-        quantity: { type: Number, required: true }
+        quantity: { type: Number, required: true },
+        productImage: { type: String },
+        productName: { type: String},
+        productPrice: { type: Number},
       }
     ]
   }
@@ -47,11 +50,11 @@ const userSchema = new Schema({
 
 userSchema.methods.addToCart = function(product) {
   const cartProductIndex = this.cart.items.findIndex(cp => {
-    console.log('cp', cp)
-    console.log('cp.productId.toString() === product._id.toString();', cp.productId.toString() === product._id.toString())
+    // console.log('cp', cp)
+    // console.log('cp.productId.toString() === product._id.toString();', cp.productId.toString() === product._id.toString())
     return cp.productId.toString() === product._id.toString();
   });
-  console.log('cartProductIndex', cartProductIndex)
+  // console.log('cartProductIndex', cartProductIndex)
   let newQuantity = 1;
   const updatedCartItems = [...this.cart.items];
 
@@ -61,7 +64,10 @@ userSchema.methods.addToCart = function(product) {
   } else {
     updatedCartItems.push({
       productId: product._id,
-      quantity: newQuantity
+      productImage : product.imageUrl,
+      productPrice: product.price,
+      productName: product.title,
+      quantity: newQuantity,
     });
   }
   const updatedCart = {
