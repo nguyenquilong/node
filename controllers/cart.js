@@ -72,6 +72,7 @@ exports.listCart = async (req, res, next) => {
   try {
     const id = req.userId;
     const user = await User.findById(id);
+    user.save
     res.status(200).json({ message: "get cart success", status: 1, cart: user.cart });
   } catch (err) {
     if (!err.statusCode) {
@@ -80,3 +81,4 @@ exports.listCart = async (req, res, next) => {
     next(err);
   }
 };
+

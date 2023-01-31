@@ -35,4 +35,6 @@ router.patch(
   authController.updateUserStatus
 );
 
+router.get("/userInfo", isAuth, authController.getUserInfo);
+
 module.exports = router;
